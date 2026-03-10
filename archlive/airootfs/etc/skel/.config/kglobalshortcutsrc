@@ -1,0 +1,16 @@
+[kitty.desktop]
+_k_friendly_name=Kitty Terminal
+_launch=Meta+Return,none,Kitty Terminal
+
+[org.kde.dolphin.desktop]
+_k_friendly_name=Dolphin
+_launch=Meta+E,none,Dolphin
+
+[org.kde.spectacle.desktop]
+_k_friendly_name=Spectacle
+CurrentProfile=RecordRegion,none,Record Rectangular Region
+RectangularRegionScreenShot=Meta+Shift+S,none,Capture Rectangular Region
+
+[kwin]
+Overview=Meta+Tab,Meta+W,Toggle Overview
+Expose=none,none,Toggle Present Windows (Current desktop)

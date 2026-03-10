@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Install Sith OS
+Comment=Install Sith OS to your disk
+Exec=kitty --title "Sith OS Installer" -e sithos-install
+Icon=calamares
+Terminal=false
+Categories=System;

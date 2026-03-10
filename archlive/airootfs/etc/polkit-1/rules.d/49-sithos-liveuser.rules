@@ -1,0 +1,25 @@
+// Sith OS — Polkit rules for live ISO (passwordless device management)
+polkit.addRule(function(action, subject) {
+    if (subject.user === "liveuser") {
+        // Allow mounting/unmounting drives in Dolphin
+        if (action.id.indexOf("org.freedesktop.udisks2.") === 0) return polkit.Result.YES;
+        // Allow network management (WiFi, VPN)
+        if (action.id.indexOf("org.freedesktop.NetworkManager.") === 0) return polkit.Result.YES;
+        // Allow power management (shutdown, reboot, suspend)
+        if (action.id.indexOf("org.freedesktop.login1.") === 0) return polkit.Result.YES;
+        // Allow Bluetooth management
+        if (action.id.indexOf("org.blueman.") === 0) return polkit.Result.YES;
+        // Allow printer configuration
+        if (action.id.indexOf("org.opensuse.cupspkhelper.") === 0) return polkit.Result.YES;
+        // Allow package management (for installer)
+        if (action.id.indexOf("org.freedesktop.packagekit.") === 0) return polkit.Result.YES;
+        // Allow firewall configuration
+        if (action.id.indexOf("org.fedoraproject.FirewallD1.") === 0) return polkit.Result.YES;
+        // Allow time/date changes
+        if (action.id.indexOf("org.freedesktop.timedate1.") === 0) return polkit.Result.YES;
+        // Allow hostname changes
+        if (action.id.indexOf("org.freedesktop.hostname1.") === 0) return polkit.Result.YES;
+        // Allow locale changes
+        if (action.id.indexOf("org.freedesktop.locale1.") === 0) return polkit.Result.YES;
+    }
+});

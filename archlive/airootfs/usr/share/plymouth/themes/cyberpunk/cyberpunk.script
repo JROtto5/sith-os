@@ -1,0 +1,170 @@
+// Sith OS Cyberpunk Plymouth Theme
+
+// Background — #080112 = rgb(8, 1, 18) → (0.031, 0.004, 0.071)
+Window.SetBackgroundTopColor(0.031, 0.004, 0.071);
+Window.SetBackgroundBottomColor(0.016, 0.000, 0.035);
+
+// Screen dimensions
+screen_width = Window.GetWidth();
+screen_height = Window.GetHeight();
+
+// ── Title: "SITH OS" ──
+logo_image = Image.Text("SITH OS", 0.85, 0.0, 1.0, "Hack 42");
+logo_sprite = Sprite(logo_image);
+logo_sprite.SetX(screen_width / 2 - logo_image.GetWidth() / 2);
+logo_sprite.SetY(screen_height / 2 - 100);
+logo_sprite.SetOpacity(1);
+logo_sprite.SetZ(10);
+
+// Subtitle
+sub_image = Image.Text("CHANNELING THE FORCE", 0.55, 0.39, 0.63, "Hack 14");
+sub_sprite = Sprite(sub_image);
+sub_sprite.SetX(screen_width / 2 - sub_image.GetWidth() / 2);
+sub_sprite.SetY(screen_height / 2 - 40);
+sub_sprite.SetZ(10);
+
+// ── Progress bar ──
+bar_width = 400;
+bar_height = 6;
+bar_x = screen_width / 2 - bar_width / 2;
+bar_y = screen_height / 2 + 20;
+
+// Bar background (dark purple track)
+bar_bg = Image(bar_width, bar_height);
+for (x = 0; x < bar_width; x++) {
+    for (y = 0; y < bar_height; y++) {
+        bar_bg.SetPixel(x, y, 0.12, 0.02, 0.20, 1.0);
+    }
+}
+bar_bg_sprite = Sprite(bar_bg);
+bar_bg_sprite.SetX(bar_x);
+bar_bg_sprite.SetY(bar_y);
+bar_bg_sprite.SetZ(1);
+
+// Bar fill sprite (updated during progress)
+bar_fill_sprite = Sprite();
+bar_fill_sprite.SetZ(2);
+
+// ── Animation state ──
+global.counter = 0;
+global.pulse_dir = 1;
+global.pulse_val = 0.7;
+
+fun refresh_callback() {
+    // Pulse the title text between dim and bright purple/magenta
+    global.counter += 0.02;
+    global.pulse_val += global.pulse_dir * 0.008;
+    if (global.pulse_val >= 1.0) {
+        global.pulse_dir = -1;
+    }
+    if (global.pulse_val <= 0.45) {
+        global.pulse_dir = 1;
+    }
+
+    // Neon purple pulse: high red-blue, low green
+    r = global.pulse_val * 0.85;
+    g = 0.0;
+    b = global.pulse_val;
+    new_logo = Image.Text("SITH OS", r, g, b, "Hack 42");
+    logo_sprite.SetImage(new_logo);
+    logo_sprite.SetX(screen_width / 2 - new_logo.GetWidth() / 2);
+
+    // Subtle subtitle pulse (approximate — Plymouth has no Sin function)
+    sub_r = 0.45 + (global.pulse_val - 0.7) * 0.3;
+    sub_g = 0.30 + (global.pulse_val - 0.7) * 0.15;
+    sub_b = 0.55 + (global.pulse_val - 0.7) * 0.2;
+    new_sub = Image.Text("CHANNELING THE FORCE", sub_r, sub_g, sub_b, "Hack 14");
+    sub_sprite.SetImage(new_sub);
+    sub_sprite.SetX(screen_width / 2 - new_sub.GetWidth() / 2);
+}
+
+Plymouth.SetRefreshFunction(refresh_callback);
+
+// ── Boot progress ──
+fun boot_progress_callback(duration, progress) {
+    fill_width = Math.Int(bar_width * progress);
+    if (fill_width < 1) fill_width = 1;
+
+    fill = Image(fill_width, bar_height);
+    for (x = 0; x < fill_width; x++) {
+        // Neon purple-to-cyan gradient
+        t = x / bar_width;
+        r = 0.71 * (1 - t);
+        g = t * 0.8;
+        b = 0.71 * (1 - t) + t * 0.78;
+        for (y = 0; y < bar_height; y++) {
+            fill.SetPixel(x, y, r, g, b, 1.0);
+        }
+    }
+    bar_fill_sprite.SetImage(fill);
+    bar_fill_sprite.SetX(bar_x);
+    bar_fill_sprite.SetY(bar_y);
+
+    // Percentage text
+    pct = Math.Int(progress * 100);
+    pct_image = Image.Text(pct + "%", 0.0, 0.9, 0.78, "Hack 12");
+    if (global.pct_sprite) {
+        global.pct_sprite.SetImage(pct_image);
+    } else {
+        global.pct_sprite = Sprite(pct_image);
+        global.pct_sprite.SetZ(10);
+    }
+    global.pct_sprite.SetX(screen_width / 2 - pct_image.GetWidth() / 2);
+    global.pct_sprite.SetY(bar_y + 16);
+}
+
+Plymouth.SetBootProgressFunction(boot_progress_callback);
+
+// ── Password prompt (for encrypted disks) ──
+fun password_callback(prompt, bullets) {
+    prompt_image = Image.Text(prompt, 0.71, 0, 1, "Hack 14");
+    if (global.prompt_sprite) {
+        global.prompt_sprite.SetImage(prompt_image);
+    } else {
+        global.prompt_sprite = Sprite(prompt_image);
+        global.prompt_sprite.SetZ(10);
+    }
+    global.prompt_sprite.SetX(screen_width / 2 - prompt_image.GetWidth() / 2);
+    global.prompt_sprite.SetY(screen_height / 2 + 80);
+
+    bullet_str = "";
+    for (i = 0; i < bullets; i++) {
+        bullet_str += "* ";
+    }
+    bullet_image = Image.Text(bullet_str, 0, 1, 0.78, "Hack 18");
+    if (global.bullet_sprite) {
+        global.bullet_sprite.SetImage(bullet_image);
+    } else {
+        global.bullet_sprite = Sprite(bullet_image);
+        global.bullet_sprite.SetZ(10);
+    }
+    global.bullet_sprite.SetX(screen_width / 2 - bullet_image.GetWidth() / 2);
+    global.bullet_sprite.SetY(screen_height / 2 + 110);
+}
+
+Plymouth.SetDisplayPasswordFunction(password_callback);
+
+// ── Message display ──
+fun message_callback(text) {
+    msg_image = Image.Text(text, 0.55, 0.39, 0.63, "Hack 12");
+    if (global.msg_sprite) {
+        global.msg_sprite.SetImage(msg_image);
+    } else {
+        global.msg_sprite = Sprite(msg_image);
+        global.msg_sprite.SetZ(10);
+    }
+    global.msg_sprite.SetX(screen_width / 2 - msg_image.GetWidth() / 2);
+    global.msg_sprite.SetY(screen_height / 2 + 60);
+}
+
+Plymouth.SetMessageFunction(message_callback);
+
+// ── Quit ──
+fun quit_callback() {
+    logo_sprite.SetOpacity(0);
+    sub_sprite.SetOpacity(0);
+    if (global.pct_sprite) global.pct_sprite.SetOpacity(0);
+    if (global.msg_sprite) global.msg_sprite.SetOpacity(0);
+}
+
+Plymouth.SetQuitFunction(quit_callback);

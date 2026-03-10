@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Service
+MimeType=inode/directory;
+Actions=openKitty
+
+[Desktop Action openKitty]
+Name=Open in Kitty Terminal
+Icon=kitty
+Exec=kitty --working-directory %f

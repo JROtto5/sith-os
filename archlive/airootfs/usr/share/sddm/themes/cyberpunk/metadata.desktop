@@ -1,0 +1,13 @@
+[SddmGreeterTheme]
+Name=Cyberpunk
+Description=Cyberpunk neon login theme
+Author=johnr
+Copyright=2026
+License=MIT
+Type=sddm-theme
+Version=1.0
+Website=
+Screenshot=
+MainScript=Main.qml
+ConfigFile=theme.conf
+TranslationsDirectory=translations

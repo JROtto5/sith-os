@@ -1,0 +1,91 @@
+#!/bin/bash
+# Sith OS System Maintenance
+
+PURPLE='\033[1;35m'
+CYAN='\033[1;36m'
+RED='\033[1;31m'
+GREEN='\033[1;32m'
+DIM='\033[2m'
+NC='\033[0m'
+
+echo -e "${PURPLE}  ═══ SITH OS MAINTENANCE ═══${NC}"
+echo ""
+
+echo -e "${CYAN}  1)${NC} Full system update"
+echo -e "${CYAN}  2)${NC} Remove orphaned packages"
+echo -e "${CYAN}  3)${NC} Clean package cache"
+echo -e "${CYAN}  4)${NC} Trim journal logs"
+echo -e "${CYAN}  5)${NC} TRIM SSD"
+echo -e "${CYAN}  6)${NC} Check for broken packages"
+echo -e "${CYAN}  7)${NC} Run ALL maintenance"
+echo -e "${CYAN}  8)${NC} Create BTRFS snapshot"
+echo -e "${CYAN}  9)${NC} Exit"
+echo ""
+read -p "  Select [1-9]: " choice
+
+case $choice in
+    1)
+        echo -e "\n${CYAN}  Updating system...${NC}\n"
+        sudo pacman -Syu
+        ;;
+    2)
+        ORPHANS=$(pacman -Qdtq 2>/dev/null)
+        if [[ -n "$ORPHANS" ]]; then
+            echo -e "\n${CYAN}  Removing orphans:${NC}"
+            echo "$ORPHANS"
+            echo "$ORPHANS" | sudo pacman -Rns -
+        else
+            echo -e "\n${GREEN}  No orphaned packages found.${NC}"
+        fi
+        ;;
+    3)
+        echo -e "\n${CYAN}  Cleaning package cache (keeping last 3 versions)...${NC}\n"
+        sudo paccache -r
+        echo -e "${GREEN}  Done.${NC}"
+        ;;
+    4)
+        echo -e "\n${CYAN}  Trimming journal to 100MB...${NC}\n"
+        sudo journalctl --vacuum-size=100M
+        echo -e "${GREEN}  Done.${NC}"
+        ;;
+    5)
+        echo -e "\n${CYAN}  Running SSD TRIM...${NC}\n"
+        sudo fstrim -av
+        echo -e "${GREEN}  Done.${NC}"
+        ;;
+    6)
+        echo -e "\n${CYAN}  Checking for packages that need rebuilding...${NC}\n"
+        if command -v checkrebuild &>/dev/null; then
+            checkrebuild
+        else
+            echo -e "${DIM}  rebuild-detector not installed${NC}"
+        fi
+        ;;
+    7)
+        echo -e "\n${PURPLE}  Running full maintenance...${NC}\n"
+        echo -e "${CYAN}  [1/5] System update${NC}"
+        sudo pacman -Syu --noconfirm
+        echo -e "\n${CYAN}  [2/5] Removing orphans${NC}"
+        ORPHANS=$(pacman -Qdtq 2>/dev/null)
+        if [[ -n "$ORPHANS" ]]; then echo "$ORPHANS" | sudo pacman -Rns --noconfirm -; else echo "  No orphans"; fi
+        echo -e "\n${CYAN}  [3/5] Cleaning cache${NC}"
+        sudo paccache -r
+        echo -e "\n${CYAN}  [4/5] Trimming journal${NC}"
+        sudo journalctl --vacuum-size=100M
+        echo -e "\n${CYAN}  [5/5] SSD TRIM${NC}"
+        sudo fstrim -av 2>/dev/null || echo "  No TRIM-capable drives"
+        echo -e "\n${GREEN}  ═══ All maintenance complete ═══${NC}\n"
+        ;;
+    8)
+        if command -v snapper &>/dev/null; then
+            echo -e "\n${CYAN}  Creating snapshot...${NC}\n"
+            sudo snapper -c root create --description "Manual snapshot $(date +%Y-%m-%d_%H:%M)"
+            echo -e "${GREEN}  Snapshot created.${NC}"
+        else
+            echo -e "\n${RED}  Snapper not configured. Run 'sudo snapper create-config /' first.${NC}"
+        fi
+        ;;
+    9|"")
+        exit 0
+        ;;
+esac

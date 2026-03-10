@@ -1,0 +1,84 @@
+# Sith Cyberpunk theme for btop
+# Colors: purple (#b400ff), red (#ff0033), cyan (#00ffc8), amber (#ffaa00)
+
+# Main background - transparent for kitty blur
+theme[main_bg]="#00"
+
+# Main foreground
+theme[main_fg]="#e6dcff"
+
+# Title color
+theme[title]="#b400ff"
+
+# Highlight color
+theme[hi_fg]="#00ffc8"
+
+# Selected item bg
+theme[selected_bg]="#1a0535"
+theme[selected_fg]="#00ffc8"
+
+# Inactive text
+theme[inactive_fg]="#8c64a0"
+
+# Proc misc
+theme[proc_misc]="#00ffc8"
+
+# CPU box
+theme[cpu_box]="#b400ff"
+
+# Memory box
+theme[mem_box]="#b400ff"
+
+# Net box
+theme[net_box]="#b400ff"
+
+# Proc box
+theme[proc_box]="#b400ff"
+
+# Divider line
+theme[div_line]="#8c64a0"
+
+# Temp start-mid-end
+theme[temp_start]="#00ffc8"
+theme[temp_mid]="#ffaa00"
+theme[temp_end]="#ff0033"
+
+# CPU graph colors
+theme[cpu_start]="#b400ff"
+theme[cpu_mid]="#ff0033"
+theme[cpu_end]="#ff3355"
+
+# Free memory
+theme[free_start]="#00ffc8"
+theme[free_mid]="#00ff96"
+theme[free_end]="#32ffb4"
+
+# Cached memory
+theme[cached_start]="#b400ff"
+theme[cached_mid]="#9b59b6"
+theme[cached_end]="#c832ff"
+
+# Available memory
+theme[available_start]="#ffaa00"
+theme[available_mid]="#ffc832"
+theme[available_end]="#ffaa00"
+
+# Used memory
+theme[used_start]="#ff0033"
+theme[used_mid]="#ff3355"
+theme[used_end]="#ff0050"
+
+# Download graph
+theme[download_start]="#00ffc8"
+theme[download_mid]="#b400ff"
+theme[download_end]="#ff0033"
+
+# Upload graph
+theme[upload_start]="#b400ff"
+theme[upload_mid]="#ff0033"
+theme[upload_end]="#ffaa00"
+
+# Process start-mid-end
+theme[process_start]="#00ffc8"
+theme[process_mid]="#b400ff"
+theme[process_end]="#ff0033"

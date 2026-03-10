@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Cyberpunk
+Description=Cyberpunk neon boot splash
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/cyberpunk
+ScriptFile=/usr/share/plymouth/themes/cyberpunk/cyberpunk.script

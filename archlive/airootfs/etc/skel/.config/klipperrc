@@ -1,0 +1,7 @@
+[General]
+IgnoreImages=false
+KeepClipboardContents=true
+MaxClipItems=50
+NoEmptyClipboard=true
+PlayBeep=false
+SyncClipboards=true

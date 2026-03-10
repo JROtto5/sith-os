@@ -1,0 +1,40 @@
+---
+componentName: sithos
+
+welcomeStyleCalamares: false
+welcomeExpandingLogo: true
+
+windowExpanding: normal
+windowSize: 900px,600px
+windowPlacement: center
+
+sidebar: widget
+navigation: widget
+
+strings:
+    productName:         "Sith OS"
+    shortProductName:    "Sith OS"
+    version:             "1.0"
+    shortVersion:        "1.0"
+    versionedName:       "Sith OS 1.0"
+    shortVersionedName:  "Sith OS 1.0"
+    bootloaderEntryName: "Sith OS"
+    productUrl:          "https://github.com/JROtto5/sith-os"
+    supportUrl:          "https://github.com/JROtto5/sith-os/issues"
+    knownIssuesUrl:      "https://github.com/JROtto5/sith-os/issues"
+    releaseNotesUrl:     "https://github.com/JROtto5/sith-os/releases"
+    donateUrl:           ""
+
+images:
+    productLogo:         "logo.png"
+    productIcon:         "logo.png"
+    productWelcome:      "welcome.png"
+
+style:
+    SidebarBackground:        "#080112"
+    SidebarText:              "#e6dcff"
+    SidebarTextCurrent:       "#080112"
+    SidebarBackgroundCurrent: "#b400ff"
+
+slideshow:               "show.qml"
+slideshowAPI: 2

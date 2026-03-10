@@ -1,0 +1,45 @@
+[init]
+    defaultBranch = main
+
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true
+    dark = true
+    syntax-theme = Dracula
+    side-by-side = true
+    line-numbers = true
+    line-numbers-left-style = "#5a00b4"
+    line-numbers-right-style = "#5a00b4"
+    line-numbers-minus-style = "#ff0033"
+    line-numbers-plus-style = "#00ffc8"
+    minus-style = "syntax #1a0010"
+    minus-emph-style = "syntax #330020"
+    plus-style = "syntax #001a10"
+    plus-emph-style = "syntax #003320"
+    hunk-header-style = "file line-number syntax"
+    hunk-header-decoration-style = "#b400ff ul"
+    file-style = "#b400ff bold"
+    file-decoration-style = "#b400ff ul"
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+
+[color]
+    ui = true
+
+[alias]
+    st = status
+    co = checkout
+    br = branch
+    ci = commit
+    lg = log --oneline --graph --decorate --all
+    last = log -1 HEAD
+    unstage = reset HEAD --

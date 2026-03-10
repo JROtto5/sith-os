@@ -1,0 +1,45 @@
+#!/bin/bash
+# Generate Sith OS notification sounds using sox (if available)
+# Run once on first boot
+
+SOUND_DIR="$HOME/.local/share/sounds/sithos"
+
+if [[ -d "$SOUND_DIR" ]]; then
+    exit 0  # Already set up
+fi
+
+mkdir -p "$SOUND_DIR"
+
+if ! command -v sox &>/dev/null; then
+    # No sox, can't generate sounds
+    exit 0
+fi
+
+# Notification - short cyberpunk ping (descending tone)
+sox -n "$SOUND_DIR/notification.wav" \
+    synth 0.1 sine 880 sine 660 \
+    fade 0 0.1 0.02 \
+    vol 0.5 2>/dev/null
+
+# Warning - deeper pulse
+sox -n "$SOUND_DIR/warning.wav" \
+    synth 0.15 sine 440 synth 0.15 sine 330 \
+    fade 0 0.3 0.05 \
+    vol 0.4 2>/dev/null
+
+# Error - harsh buzz
+sox -n "$SOUND_DIR/error.wav" \
+    synth 0.2 square 220 \
+    fade 0 0.2 0.05 \
+    tremolo 30 \
+    vol 0.3 2>/dev/null
+
+# Login - ascending cyberpunk chord
+sox -n "$SOUND_DIR/login.wav" \
+    synth 0.3 sine 330 : synth 0.3 sine 440 : synth 0.3 sine 660 \
+    delay 0 0.1 0.2 \
+    remix - \
+    fade 0 0.5 0.1 \
+    vol 0.4 2>/dev/null
+
+echo "Sith OS sounds generated in $SOUND_DIR"

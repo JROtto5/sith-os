@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Service
+MimeType=text/plain;text/x-python;text/x-script.python;text/x-c;text/x-c++;text/x-java;text/x-shellscript;application/json;application/xml;text/html;text/css;text/javascript;text/markdown;text/x-toml;text/x-yaml;
+Actions=editNvim
+
+[Desktop Action editNvim]
+Name=Edit in Neovim
+Icon=nvim
+Exec=kitty -e nvim %f

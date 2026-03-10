@@ -1,0 +1,68 @@
+#!/bin/bash
+# Sith OS Installer — Themed wrapper around archinstall
+
+PURPLE='\033[1;35m'
+CYAN='\033[1;36m'
+RED='\033[1;31m'
+WHITE='\033[1;37m'
+DIM='\033[2m'
+NC='\033[0m'
+
+clear
+
+echo -e "${PURPLE}"
+echo "  ███████╗██╗████████╗██╗  ██╗     ██████╗ ███████╗"
+echo "  ██╔════╝██║╚══██╔══╝██║  ██║    ██╔═══██╗██╔════╝"
+echo "  ███████╗██║   ██║   ███████║    ██║   ██║███████╗"
+echo "  ╚════██║██║   ██║   ██╔══██║    ██║   ██║╚════██║"
+echo "  ███████║██║   ██║   ██║  ██║    ╚██████╔╝███████║"
+echo "  ╚══════╝╚═╝   ╚═╝   ╚═╝  ╚═╝     ╚═════╝ ╚══════╝"
+echo -e "${NC}"
+echo -e "${CYAN}             I N S T A L L E R${NC}"
+echo ""
+
+# Hardware detection
+echo -e "${PURPLE}  ── Hardware Check ──${NC}"
+sithos-hwdetect 2>/dev/null | grep -E "▸|Boot mode|CPU:|RAM:"
+echo ""
+
+echo -e "${DIM}  ─────────────────────────────────────────────────${NC}"
+echo ""
+echo -e "${CYAN}  Choose installation method:${NC}"
+echo ""
+echo -e "  ${PURPLE}1)${NC} ${WHITE}Calamares${NC} ${DIM}(GUI installer — recommended)${NC}"
+echo -e "  ${PURPLE}2)${NC} ${WHITE}Archinstall${NC} ${DIM}(guided text installer)${NC}"
+echo -e "  ${PURPLE}3)${NC} ${WHITE}Manual${NC} ${DIM}(drop to shell for manual install)${NC}"
+echo -e "  ${PURPLE}4)${NC} ${WHITE}Cancel${NC}"
+echo ""
+read -p "  Select [1-4]: " choice
+
+case $choice in
+    1)
+        if command -v calamares &>/dev/null; then
+            echo -e "\n${CYAN}  Launching Calamares...${NC}\n"
+            sudo calamares
+        else
+            echo -e "\n${RED}  Calamares not available. Falling back to archinstall...${NC}\n"
+            sleep 2
+            sudo archinstall
+        fi
+        ;;
+    2)
+        echo -e "\n${CYAN}  Launching archinstall...${NC}\n"
+        sudo archinstall
+        ;;
+    3)
+        echo -e "\n${CYAN}  Dropping to shell. Use 'archinstall' or manual partition/mount.${NC}"
+        echo -e "${DIM}  Arch Wiki: https://wiki.archlinux.org/title/Installation_guide${NC}\n"
+        exec bash
+        ;;
+    4|"")
+        echo -e "\n${RED}  Installation cancelled.${NC}\n"
+        exit 0
+        ;;
+    *)
+        echo -e "\n${RED}  Invalid selection.${NC}\n"
+        exit 1
+        ;;
+esac

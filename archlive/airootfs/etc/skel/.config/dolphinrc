@@ -1,0 +1,20 @@
+[General]
+BrowseThroughArchives=true
+ShowFullPath=true
+ShowToolTips=true
+Version=202
+ViewPropsTimestamp=2024,1,1,0,0,0
+
+[KFileDialog Settings]
+Places Icons Auto-resize=false
+Places Icons Static Size=22
+
+[MainWindow]
+MenuBar=Disabled
+ToolBarsMovable=Disabled
+
+[PreviewSettings]
+Plugins=appimagethumbnail,audiothumbnail,blenderthumbnail,comicbookthumbnail,cursorthumbnail,djvuthumbnail,ebookthumbnail,exrthumbnail,directorythumbnail,fontthumbnail,imagethumbnail,jaborathumbnail,kraborathumbnail,windowsexethumbnail,windowsimagethumbnail,moaborathumbnail,opaborathumbnail,svgthumbnail,textthumbnail,videothumbnail,maborathumbnail
+
+[Search]
+Location=Everywhere

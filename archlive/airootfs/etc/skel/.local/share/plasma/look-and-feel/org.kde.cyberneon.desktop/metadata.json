@@ -1,0 +1,12 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "johnr"
+            }
+        ],
+        "Id": "org.kde.cyberneon.desktop",
+        "Name": "Cyber Neon"
+    },
+    "KPackageStructure": "Plasma/LookAndFeel"
+}

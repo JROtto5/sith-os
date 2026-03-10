@@ -1,0 +1,22 @@
+[Animation]
+Frames=15
+
+[Appearance]
+BackgroundColorOpacity=80
+HideSkinBorders=true
+Skin=default
+TerminalHighlightOnManualActivation=true
+Translucency=true
+
+[Desktop Entry]
+DefaultProfile=Cyberpunk.profile
+
+[Dialogs]
+FirstRun=false
+
+[Window]
+DynamicTabTitles=true
+Height=100
+KeepAbove=true
+ShowSystrayIcon=true
+Width=90
