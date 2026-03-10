@@ -132,16 +132,52 @@ sith-os/
 ### Prerequisites
 - Arch Linux host system
 - `archiso` package installed
-- Chaotic-AUR configured (for Calamares and AUR packages)
 - ~15GB free disk space
 - Internet connection (for package downloads)
 
-### Build
+### Setup Local Repository
+The build requires a local package repository containing Calamares, paru, and chaotic keyring packages. You can either download the pre-built repo from the [latest release](https://github.com/JROtto5/sith-os/releases), or build it yourself:
+
+**Option A — Download pre-built (recommended):**
 ```bash
 git clone https://github.com/JROtto5/sith-os.git
 cd sith-os
-sudo ./build.sh
+
+# Download localrepo.tar.gz from the latest release
+gh release download v1.0.0 --pattern 'localrepo.tar.gz'
+tar xzf localrepo.tar.gz
 ```
+
+**Option B — Build from scratch:**
+```bash
+git clone https://github.com/JROtto5/sith-os.git
+cd sith-os
+mkdir -p localrepo
+
+# Install paru (AUR helper) if not already installed
+sudo pacman -S --needed base-devel
+git clone https://aur.archlinux.org/paru.git /tmp/paru-build
+cd /tmp/paru-build && makepkg -s
+cp /tmp/paru-build/paru-*.pkg.tar.zst ~/sith-os/localrepo/
+cd ~/sith-os
+
+# Get Calamares from Chaotic-AUR (or build from AUR)
+# Option 1: Setup Chaotic-AUR temporarily
+./setup-chaotic-aur.sh
+sudo pacman -Sw --cachedir localrepo/ calamares chaotic-keyring chaotic-mirrorlist
+
+# Build the repo database
+cd localrepo
+repo-add sithos-local.db.tar.gz *.pkg.tar.zst
+cd ..
+```
+
+### Build
+```bash
+sudo mkarchiso -v -w ./work -o ./out ./archlive
+```
+
+> **Note:** Do not use `/tmp` as the work directory — it runs on tmpfs (RAM) and will run out of space. Use a disk-backed path like `./work` instead.
 
 The ISO will be output to `out/sithos-YYYY.MM.DD-x86_64.iso`
 
