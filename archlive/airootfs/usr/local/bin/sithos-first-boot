@@ -1,0 +1,68 @@
+#!/bin/bash
+# Sith OS First Boot Configuration
+# Runs once after installation to personalize the system
+
+FLAG_FILE="$HOME/.config/sithos/first-boot-done"
+
+if [[ -f "$FLAG_FILE" ]]; then
+    exit 0
+fi
+
+PURPLE='\033[1;35m'
+CYAN='\033[1;36m'
+DIM='\033[2m'
+NC='\033[0m'
+
+echo -e "${PURPLE}  ═══ SITH OS FIRST BOOT SETUP ═══${NC}"
+echo ""
+
+# Fix wallpaper paths for this user
+WALLPAPER_DIR="/usr/share/wallpapers/sithos"
+DEFAULT_WALL="$WALLPAPER_DIR/cyberpunk-city.png"
+
+if [[ -f "$DEFAULT_WALL" ]]; then
+    # Apply wallpaper using Plasma tools
+    if command -v plasma-apply-wallpaperimage &>/dev/null; then
+        plasma-apply-wallpaperimage "$DEFAULT_WALL" 2>/dev/null
+        echo -e "${CYAN}  ▸${NC} Wallpaper configured"
+    fi
+fi
+
+# Set lock screen wallpaper
+if [[ -f "$HOME/.config/kscreenlockerrc" ]]; then
+    sed -i "s|Image=.*|Image=file://${DEFAULT_WALL}|g" "$HOME/.config/kscreenlockerrc" 2>/dev/null
+    echo -e "${CYAN}  ▸${NC} Lock screen wallpaper set"
+fi
+
+# Generate notification sounds
+if command -v sithos-setup-sounds &>/dev/null; then
+    sithos-setup-sounds &>/dev/null
+    echo -e "${CYAN}  ▸${NC} Notification sounds generated"
+fi
+
+# Create XDG user directories
+if command -v xdg-user-dirs-update &>/dev/null; then
+    xdg-user-dirs-update &>/dev/null
+    echo -e "${CYAN}  ▸${NC} User directories created"
+fi
+
+# Copy wallpapers to user Pictures folder for convenience
+if [[ -d "$WALLPAPER_DIR" ]]; then
+    mkdir -p "$HOME/Pictures/Wallpapers"
+    cp -n "$WALLPAPER_DIR"/* "$HOME/Pictures/Wallpapers/" 2>/dev/null
+    echo -e "${CYAN}  ▸${NC} Wallpapers copied to ~/Pictures/Wallpapers/"
+fi
+
+# Add Flathub repository
+if command -v flatpak &>/dev/null; then
+    flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo 2>/dev/null
+    echo -e "${CYAN}  ▸${NC} Flathub repository added"
+fi
+
+# Set flag
+mkdir -p "$(dirname "$FLAG_FILE")"
+touch "$FLAG_FILE"
+
+echo ""
+echo -e "${PURPLE}  Setup complete. Welcome to the Dark Side.${NC}"
+echo ""

@@ -1,0 +1,316 @@
+# ══════════════════════════════════════════
+# SITH OS — Package Manifest
+# ══════════════════════════════════════════
+
+# ── Base System ──
+base
+linux
+linux-firmware
+linux-headers
+amd-ucode
+intel-ucode
+mkinitcpio
+mkinitcpio-archiso
+
+# ── Boot ──
+grub
+os-prober
+efibootmgr
+syslinux
+memtest86+
+memtest86+-efi
+
+# ── Filesystem ──
+btrfs-progs
+dosfstools
+e2fsprogs
+exfatprogs
+f2fs-tools
+gptfdisk
+ntfs-3g
+xfsprogs
+parted
+
+# ── Networking ──
+networkmanager
+network-manager-applet
+openssh
+openvpn
+wireguard-tools
+nmap
+bind
+iw
+wireless-regdb
+wireless_tools
+wpa_supplicant
+dnsmasq
+
+# ── Printing & Scanning ──
+cups
+cups-filters
+cups-pdf
+hplip
+sane
+sane-airscan
+ipp-usb
+avahi
+nss-mdns
+system-config-printer
+
+# ── Network Shares ──
+samba
+gvfs-smb
+cifs-utils
+
+# ── VPN ──
+networkmanager-openvpn
+openconnect
+networkmanager-openconnect
+
+# ── KDE Plasma Desktop ──
+plasma-desktop
+plasma-pa
+plasma-nm
+plasma-systemmonitor
+plasma-workspace
+plasma-wayland-protocols
+sddm
+sddm-kcm
+dolphin
+konsole
+kate
+ark
+spectacle
+gwenview
+okular
+kcalc
+kscreen
+powerdevil
+bluedevil
+
+# ── Bluetooth ──
+bluez
+bluez-utils
+
+breeze
+breeze-gtk
+xdg-desktop-portal-kde
+xdg-desktop-portal-gtk
+xdg-user-dirs
+qt6-svg
+qt6-declarative
+kvantum
+
+# ── Audio ──
+pipewire
+pipewire-pulse
+pipewire-alsa
+pipewire-jack
+wireplumber
+alsa-utils
+sox
+
+# ── Multimedia Codecs ──
+gst-plugins-good
+gst-plugins-bad
+gst-plugins-ugly
+gst-plugin-va
+gst-libav
+gst-plugin-pipewire
+x264
+x265
+libdvdcss
+libva-utils
+intel-media-driver
+
+# ── Terminal & Shell ──
+kitty
+yakuake
+starship
+bash-completion
+tmux
+neovim
+zsh
+
+# ── CLI Rice Tools ──
+fastfetch
+btop
+cava
+conky
+bat
+eza
+dust
+fd
+fzf
+zoxide
+lazygit
+yazi
+git-delta
+glow
+tldr
+
+# ── Eye Candy ──
+cmatrix
+lolcat
+figlet
+toilet
+
+# ── Fonts ──
+ttf-hack-nerd
+ttf-firacode-nerd
+noto-fonts
+noto-fonts-emoji
+noto-fonts-cjk
+inter-font
+ttf-liberation
+
+# ── Icons & Themes ──
+papirus-icon-theme
+breeze-icons
+
+# ── Graphics Drivers ──
+mesa
+vulkan-icd-loader
+vulkan-intel
+vulkan-radeon
+xf86-video-amdgpu
+nvidia-open-dkms
+nvidia-utils
+egl-wayland
+nvidia-settings
+libglvnd
+
+# ── Provider Preferences (prevent chaotic-aur conflicts) ──
+iptables-nft
+polkit
+qt6-multimedia-ffmpeg
+phonon-qt6-vlc
+
+# ── General Applications ──
+firefox
+git
+base-devel
+sudo
+reflector
+man-db
+man-pages
+less
+vim
+nano
+rsync
+wget
+curl
+unzip
+p7zip
+
+# ── System Tools ──
+zram-generator
+smartmontools
+hdparm
+usbutils
+pciutils
+dmidecode
+lsscsi
+nvme-cli
+pv
+pacman-contrib
+xdg-utils
+
+# ── Installer (Calamares) ──
+calamares
+chaotic-keyring
+chaotic-mirrorlist
+
+# ── AUR Helper ──
+paru
+
+# ── Fallback Kernel ──
+linux-lts
+linux-lts-headers
+
+# ── BTRFS Snapshots & Rollback ──
+snapper
+snap-pac
+grub-btrfs
+
+# ── Performance ──
+irqbalance
+tlp
+
+# ── Firmware Updates ──
+fwupd
+
+# ── WiFi Firmware ──
+broadcom-wl-dkms
+dkms
+
+# ── Firewall ──
+firewalld
+
+# ── Common Applications ──
+vlc
+partitionmanager
+filelight
+libreoffice-fresh
+
+# ── System Maintenance ──
+pkgfile
+rebuild-detector
+
+# ── Gaming ──
+steam
+lutris
+gamemode
+lib32-gamemode
+mangohud
+lib32-mangohud
+lib32-mesa
+lib32-vulkan-icd-loader
+lib32-vulkan-radeon
+lib32-vulkan-intel
+vulkan-radeon
+lib32-nvidia-utils
+wine-staging
+winetricks
+lib32-pipewire
+lib32-libpulse
+
+# ── Developer Tools ──
+docker
+docker-compose
+python
+python-pip
+nodejs
+npm
+rustup
+go
+cmake
+gdb
+strace
+valgrind
+
+# ── Media ──
+ffmpeg
+imagemagick
+yt-dlp
+mpv
+
+# ── Archiso/Live Utilities ──
+arch-install-scripts
+archinstall
+squashfs-tools
+edk2-shell
+cryptsetup
+lvm2
+mdadm
+
+# ── Plymouth ──
+plymouth
+
+# ── Flatpak ──
+flatpak
+
+# ── Virtualization Guest Support ──
+open-vm-tools
+virtualbox-guest-utils
+qemu-guest-agent

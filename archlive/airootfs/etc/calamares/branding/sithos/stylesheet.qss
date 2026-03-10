@@ -1,0 +1,218 @@
+/* Sith OS Calamares Theme */
+
+/* Main window */
+#mainApp {
+    background-color: #080112;
+}
+
+#sidebarApp {
+    background-color: #080112;
+}
+
+/* All text */
+QLabel {
+    color: #e6dcff;
+}
+
+/* Buttons */
+QPushButton {
+    background-color: #1a0535;
+    color: #e6dcff;
+    border: 1px solid #5a00b4;
+    border-radius: 4px;
+    padding: 8px 20px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #b400ff;
+    color: #080112;
+    border-color: #b400ff;
+}
+
+QPushButton:pressed {
+    background-color: #5a00b4;
+}
+
+QPushButton:disabled {
+    background-color: #0f031e;
+    color: #5a00b4;
+    border-color: #1a0535;
+}
+
+/* Primary action buttons */
+#next_button, #install_button {
+    background-color: #b400ff;
+    color: #080112;
+    border: none;
+    font-weight: bold;
+}
+
+#next_button:hover, #install_button:hover {
+    background-color: #d040ff;
+}
+
+#back_button {
+    background-color: transparent;
+    border: 1px solid #5a00b4;
+    color: #e6dcff;
+}
+
+#back_button:hover {
+    border-color: #b400ff;
+    color: #b400ff;
+}
+
+/* Cancel button */
+#cancel_button {
+    background-color: transparent;
+    border: 1px solid #ff0033;
+    color: #ff0033;
+}
+
+#cancel_button:hover {
+    background-color: #ff0033;
+    color: #080112;
+}
+
+/* Input fields */
+QLineEdit, QComboBox, QSpinBox {
+    background-color: #0f031e;
+    color: #e6dcff;
+    border: 1px solid #5a00b4;
+    border-radius: 3px;
+    padding: 6px;
+    selection-background-color: #b400ff;
+    selection-color: #080112;
+}
+
+QLineEdit:focus, QComboBox:focus {
+    border-color: #b400ff;
+}
+
+/* Combo box dropdown */
+QComboBox::drop-down {
+    border: none;
+    background: #1a0535;
+}
+
+QComboBox QAbstractItemView {
+    background-color: #0f031e;
+    color: #e6dcff;
+    selection-background-color: #b400ff;
+    selection-color: #080112;
+    border: 1px solid #5a00b4;
+}
+
+/* Checkboxes and radio buttons */
+QCheckBox, QRadioButton {
+    color: #e6dcff;
+    spacing: 8px;
+}
+
+QCheckBox::indicator, QRadioButton::indicator {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #5a00b4;
+    border-radius: 3px;
+    background: #0f031e;
+}
+
+QCheckBox::indicator:checked, QRadioButton::indicator:checked {
+    background: #b400ff;
+    border-color: #b400ff;
+}
+
+/* Progress bar */
+QProgressBar {
+    background-color: #0f031e;
+    border: 1px solid #1a0535;
+    border-radius: 3px;
+    text-align: center;
+    color: #e6dcff;
+    height: 20px;
+}
+
+QProgressBar::chunk {
+    background-color: #b400ff;
+    border-radius: 2px;
+}
+
+/* Scrollbars */
+QScrollBar:vertical {
+    background: #080112;
+    width: 10px;
+    border: none;
+}
+
+QScrollBar::handle:vertical {
+    background: #5a00b4;
+    border-radius: 5px;
+    min-height: 30px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background: #b400ff;
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0;
+}
+
+/* List views */
+QListView, QTreeView, QTableView {
+    background-color: #0f031e;
+    color: #e6dcff;
+    border: 1px solid #1a0535;
+    selection-background-color: #b400ff;
+    selection-color: #080112;
+    alternate-background-color: #080112;
+}
+
+/* Group boxes */
+QGroupBox {
+    border: 1px solid #1a0535;
+    border-radius: 4px;
+    margin-top: 16px;
+    padding-top: 16px;
+    color: #e6dcff;
+}
+
+QGroupBox::title {
+    color: #00ffc8;
+    subcontrol-origin: margin;
+    left: 12px;
+    padding: 0 6px;
+}
+
+/* Tool tips */
+QToolTip {
+    background-color: #0f031e;
+    color: #e6dcff;
+    border: 1px solid #b400ff;
+    padding: 4px;
+}
+
+/* Tab widget */
+QTabWidget::pane {
+    border: 1px solid #1a0535;
+    background: #080112;
+}
+
+QTabBar::tab {
+    background: #0f031e;
+    color: #e6dcff;
+    padding: 8px 16px;
+    border: 1px solid #1a0535;
+}
+
+QTabBar::tab:selected {
+    background: #1a0535;
+    color: #00ffc8;
+    border-bottom-color: #1a0535;
+}
+
+/* Frame */
+QFrame {
+    color: #1a0535;
+}

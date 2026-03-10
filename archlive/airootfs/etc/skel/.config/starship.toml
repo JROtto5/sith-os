@@ -1,0 +1,95 @@
+palette = "sith_cyberpunk"
+
+format = """
+[╭─⚡](dimmed purple) $os$username$hostname$directory$git_branch$git_status$python$nodejs$rust$docker_context$cmd_duration\
+$line_break\
+[╰─⚡](dimmed purple)$character"""
+
+right_format = "$time"
+
+[palettes.sith_cyberpunk]
+neon_green = "#00ff96"
+neon_cyan = "#00ffc8"
+neon_pink = "#ff0050"
+neon_purple = "#b400ff"
+neon_yellow = "#ffaa00"
+neon_orange = "#ff6600"
+deep_purple = "#1a0535"
+sith_red = "#ff0033"
+
+[os]
+disabled = false
+style = "bold neon_cyan"
+format = "[$symbol]($style) "
+
+[os.symbols]
+Arch = "󰣇"
+Linux = ""
+
+[username]
+show_always = false
+style_user = "bold neon_purple"
+format = "[$user]($style) "
+
+[hostname]
+ssh_only = true
+style = "bold neon_pink"
+format = "@ [$hostname]($style) "
+
+[character]
+success_symbol = "[⚡>>>](bold neon_cyan)"
+error_symbol = "[⚡>>>](bold sith_red)"
+
+[directory]
+style = "bold neon_cyan"
+truncation_length = 3
+truncate_to_repo = true
+format = "[ $path]($style)[$read_only]($read_only_style) "
+read_only = " 󰌾"
+
+[git_branch]
+style = "bold neon_purple"
+format = "[ $branch]($style) "
+
+[git_status]
+style = "bold neon_pink"
+format = '([\[$all_status$ahead_behind\]]($style) )'
+ahead = "⇡"
+behind = "⇣"
+diverged = "⇕"
+modified = ""
+staged = ""
+untracked = ""
+renamed = ""
+deleted = ""
+stashed = ""
+
+[python]
+style = "bold neon_yellow"
+format = '[ $version(\($virtualenv\))]($style) '
+
+[nodejs]
+style = "bold neon_green"
+format = "[ $version]($style) "
+
+[rust]
+style = "bold neon_orange"
+format = "[ $version]($style) "
+
+[docker_context]
+style = "bold blue"
+format = "[ $context]($style) "
+
+[cmd_duration]
+style = "bold neon_yellow"
+min_time = 2_000
+format = "[ $duration]($style) "
+
+[time]
+disabled = false
+style = "dimmed neon_purple"
+format = "[ $time]($style)"
+time_format = "%H:%M:%S"
+
+[line_break]
+disabled = false

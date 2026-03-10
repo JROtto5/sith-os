@@ -1,0 +1,109 @@
+#!/bin/bash
+# Sith OS Welcome — Terminal-based welcome experience
+
+clear
+
+# Colors
+RED='\033[1;31m'
+PURPLE='\033[1;35m'
+CYAN='\033[1;36m'
+WHITE='\033[1;37m'
+DIM='\033[2m'
+NC='\033[0m'
+
+# Banner
+echo ""
+echo -e "${PURPLE}  ███████╗██╗████████╗██╗  ██╗     ██████╗ ███████╗${NC}"
+echo -e "${PURPLE}  ██╔════╝██║╚══██╔══╝██║  ██║    ██╔═══██╗██╔════╝${NC}"
+echo -e "${RED}  ███████╗██║   ██║   ███████║    ██║   ██║███████╗${NC}"
+echo -e "${RED}  ╚════██║██║   ██║   ██╔══██║    ██║   ██║╚════██║${NC}"
+echo -e "${PURPLE}  ███████║██║   ██║   ██║  ██║    ╚██████╔╝███████║${NC}"
+echo -e "${PURPLE}  ╚══════╝╚═╝   ╚═╝   ╚═╝  ╚═╝     ╚═════╝ ╚══════╝${NC}"
+echo ""
+echo -e "${DIM}  ─────────────────────────────────────────────────${NC}"
+echo -e "${CYAN}           T H E   D A R K   S I D E   O F   L I N U X${NC}"
+echo -e "${DIM}  ─────────────────────────────────────────────────${NC}"
+echo ""
+
+# System info
+echo -e "${PURPLE}  ▸ ${WHITE}Welcome to Sith OS${NC}"
+echo -e "${PURPLE}  ▸ ${DIM}A custom Arch Linux distribution${NC}"
+echo -e "${PURPLE}  ▸ ${DIM}Sith Cyberpunk themed desktop environment${NC}"
+echo ""
+
+# Quick actions menu
+echo -e "${CYAN}  ╔══════════════════════════════════════════╗${NC}"
+echo -e "${CYAN}  ║${WHITE}  Quick Actions                            ${CYAN}║${NC}"
+echo -e "${CYAN}  ╠══════════════════════════════════════════╣${NC}"
+echo -e "${CYAN}  ║${NC}  ${PURPLE}1)${NC} Install Sith OS to disk                ${CYAN}║${NC}"
+echo -e "${CYAN}  ║${NC}  ${PURPLE}2)${NC} System information (fastfetch)          ${CYAN}║${NC}"
+echo -e "${CYAN}  ║${NC}  ${PURPLE}3)${NC} Hardware & drivers                      ${CYAN}║${NC}"
+echo -e "${CYAN}  ║${NC}  ${PURPLE}4)${NC} Explore the terminal (tips)             ${CYAN}║${NC}"
+echo -e "${CYAN}  ║${NC}  ${PURPLE}5)${NC} Update mirrors (reflector)              ${CYAN}║${NC}"
+echo -e "${CYAN}  ║${NC}  ${PURPLE}6)${NC} System maintenance                      ${CYAN}║${NC}"
+echo -e "${CYAN}  ║${NC}  ${PURPLE}7)${NC} Exit                                    ${CYAN}║${NC}"
+echo -e "${CYAN}  ╚══════════════════════════════════════════╝${NC}"
+echo ""
+
+read -p "  Select [1-7]: " choice
+
+case $choice in
+    1)
+        echo -e "\n${PURPLE}  Launching installer...${NC}\n"
+        sithos-install
+        ;;
+    2)
+        echo ""
+        fastfetch
+        echo ""
+        read -p "  Press Enter to continue..."
+        exec "$0"
+        ;;
+    3)
+        echo ""
+        sithos-hwdetect
+        echo ""
+        read -p "  Run driver manager? [y/N]: " yn
+        if [[ "$yn" =~ ^[Yy] ]]; then
+            sithos-drivers
+        fi
+        exec "$0"
+        ;;
+    4)
+        echo ""
+        echo -e "${PURPLE}  ═══ Sith OS Terminal Tips ═══${NC}"
+        echo ""
+        echo -e "  ${CYAN}▸${NC} ${WHITE}eza${NC} — Modern ls replacement (aliased to 'ls')"
+        echo -e "  ${CYAN}▸${NC} ${WHITE}bat${NC} — cat with syntax highlighting (aliased to 'cat')"
+        echo -e "  ${CYAN}▸${NC} ${WHITE}dust${NC} — Intuitive disk usage analyzer"
+        echo -e "  ${CYAN}▸${NC} ${WHITE}fd${NC} — Fast find alternative"
+        echo -e "  ${CYAN}▸${NC} ${WHITE}fzf${NC} — Fuzzy finder (Ctrl+R for history)"
+        echo -e "  ${CYAN}▸${NC} ${WHITE}zoxide${NC} — Smart cd (use 'z' to jump)"
+        echo -e "  ${CYAN}▸${NC} ${WHITE}btop${NC} — Beautiful system monitor"
+        echo -e "  ${CYAN}▸${NC} ${WHITE}lazygit${NC} — Terminal UI for git"
+        echo -e "  ${CYAN}▸${NC} ${WHITE}yazi${NC} — Terminal file manager"
+        echo -e "  ${CYAN}▸${NC} ${WHITE}cava${NC} — Audio visualizer"
+        echo -e "  ${CYAN}▸${NC} ${WHITE}cmatrix${NC} — Matrix rain effect"
+        echo ""
+        read -p "  Press Enter to continue..."
+        exec "$0"
+        ;;
+    5)
+        echo -e "\n${PURPLE}  Updating mirrors...${NC}\n"
+        sudo reflector --latest 20 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+        echo -e "\n${CYAN}  Done!${NC}\n"
+        read -p "  Press Enter to continue..."
+        exec "$0"
+        ;;
+    6)
+        sithos-maintain
+        exec "$0"
+        ;;
+    7|"")
+        echo -e "\n${RED}  Peace is a lie. There is only passion.${NC}\n"
+        exit 0
+        ;;
+    *)
+        exec "$0"
+        ;;
+esac

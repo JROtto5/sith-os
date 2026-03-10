@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Sith OS First Boot Setup
+Exec=sithos-first-boot
+Terminal=false
+X-KDE-autostart-phase=1
+Hidden=false

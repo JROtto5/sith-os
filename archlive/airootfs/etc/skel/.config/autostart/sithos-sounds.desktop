@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Sith OS Sound Setup
+Exec=sithos-setup-sounds
+Terminal=false
+X-KDE-autostart-phase=0
+Hidden=false

@@ -1,0 +1,40 @@
+#!/bin/bash
+# Sith OS Fetch — Multiple ASCII art options
+
+PURPLE='\033[1;35m'
+CYAN='\033[1;36m'
+RED='\033[1;31m'
+NC='\033[0m'
+
+case "${1:---sith}" in
+    --sith|-s)
+        fastfetch
+        ;;
+    --empire|-e)
+        # Imperial logo
+        fastfetch --logo-type builtin --logo arch
+        ;;
+    --minimal|-m)
+        fastfetch --logo none --structure Title:Separator:OS:Kernel:Uptime:Memory:CPU:GPU:Disk
+        ;;
+    --full|-f)
+        fastfetch --show-errors
+        ;;
+    --help|-h)
+        echo -e "${PURPLE}  ═══ sith-fetch ═══${NC}"
+        echo ""
+        echo -e "  ${CYAN}Usage:${NC} sith-fetch [OPTION]"
+        echo ""
+        echo -e "  ${PURPLE}Options:${NC}"
+        echo -e "    ${CYAN}-s, --sith${NC}      Sith pyramid logo (default)"
+        echo -e "    ${CYAN}-e, --empire${NC}    Arch Linux logo"
+        echo -e "    ${CYAN}-m, --minimal${NC}   No logo, key stats only"
+        echo -e "    ${CYAN}-f, --full${NC}      Full output with errors"
+        echo -e "    ${CYAN}-h, --help${NC}      Show this help"
+        echo ""
+        ;;
+    *)
+        echo "Unknown option: $1 (try --help)"
+        exit 1
+        ;;
+esac

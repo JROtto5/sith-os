@@ -1,0 +1,4 @@
+[General]
+confirmLogout=true
+loginMode=emptySession
+shutdownType=0

@@ -1,0 +1,23 @@
+[general]
+bars = 40
+framerate = 60
+sensitivity = 120
+
+[input]
+method = pipewire
+source = auto
+
+[output]
+method = ncurses
+
+[color]
+gradient = 1
+gradient_count = 5
+gradient_color_1 = '#b400ff'
+gradient_color_2 = '#ff0033'
+gradient_color_3 = '#ff0050'
+gradient_color_4 = '#00ffc8'
+gradient_color_5 = '#00ff96'
+
+[smoothing]
+noise_reduction = 66

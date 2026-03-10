@@ -1,0 +1,37 @@
+[General]
+Show Full Path in Title=true
+
+[KTextEditor Document]
+Auto Detect Indent=true
+Encoding=UTF-8
+End of Line=0
+Indent Width=4
+Line Length Limit=120
+Newline at End of File=true
+On-The-Fly Spellcheck=false
+Show Spaces=1
+Tab Width=4
+
+[KTextEditor Editor]
+Encoding Prober Type=1
+
+[KTextEditor Renderer]
+Animate Bracket Matching=true
+Auto Color Theme Selection=false
+Show Indentation Lines=true
+Show Whole Bracket Expression=true
+Word Wrap Marker=true
+
+[KTextEditor View]
+Allow Mark Menu=true
+Auto Brackets=true
+Auto Center Lines=0
+Dynamic Word Wrap=true
+Fold First Line=false
+Icon Bar=true
+Line Modification=true
+Line Numbers=true
+Scroll Bar Marks=true
+Scroll Bar Mini Map=true
+Show Word Count=true
+Vi Input Mode=true

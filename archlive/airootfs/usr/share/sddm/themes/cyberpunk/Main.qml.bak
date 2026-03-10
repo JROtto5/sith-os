@@ -1,0 +1,261 @@
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import SddmComponents 2.0
+
+Rectangle {
+    id: root
+    width: 1920
+    height: 1080
+
+    TextConstants { id: textConstants }
+
+    Connections {
+        target: sddm
+        function onLoginSucceeded() { }
+        function onLoginFailed() {
+            errorMessage.text = "Login failed"
+            password.text = ""
+            password.focus = true
+        }
+    }
+
+    // Background
+    Image {
+        anchors.fill: parent
+        source: "bg.png"
+        fillMode: Image.PreserveAspectCrop
+
+        Rectangle {
+            anchors.fill: parent
+            color: "#000000"
+            opacity: 0.4
+        }
+    }
+
+    // Scan lines effect
+    Canvas {
+        anchors.fill: parent
+        z: 1
+        onPaint: {
+            var ctx = getContext("2d")
+            ctx.strokeStyle = "rgba(180, 0, 255, 0.03)"
+            ctx.lineWidth = 1
+            for (var i = 0; i < height; i += 3) {
+                ctx.beginPath()
+                ctx.moveTo(0, i)
+                ctx.lineTo(width, i)
+                ctx.stroke()
+            }
+        }
+    }
+
+    // Login container
+    Rectangle {
+        id: loginBox
+        anchors.centerIn: parent
+        width: 380
+        height: 320
+        color: "#1a0a0014"
+        border.color: "#b400ff"
+        border.width: 2
+        radius: 8
+        z: 2
+
+        // Glow effect
+        Rectangle {
+            anchors.fill: parent
+            anchors.margins: -4
+            color: "transparent"
+            border.color: "#33b400ff"
+            border.width: 4
+            radius: 12
+            z: -1
+        }
+
+        Column {
+            anchors.centerIn: parent
+            spacing: 16
+            width: parent.width - 60
+
+            // Title
+            Text {
+                text: "SYSTEM ACCESS"
+                font.family: "Hack"
+                font.pixelSize: 24
+                font.bold: true
+                color: "#b400ff"
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            // Separator
+            Rectangle {
+                width: parent.width
+                height: 2
+                gradient: Gradient {
+                    orientation: Gradient.Horizontal
+                    GradientStop { position: 0.0; color: "transparent" }
+                    GradientStop { position: 0.5; color: "#b400ff" }
+                    GradientStop { position: 1.0; color: "transparent" }
+                }
+            }
+
+            // Username
+            TextField {
+                id: username
+                width: parent.width
+                height: 40
+                placeholderText: "USERNAME"
+                font.family: "Hack"
+                font.pixelSize: 13
+                color: "#00ffc8"
+                placeholderTextColor: "#8c64a0"
+                background: Rectangle {
+                    color: "#15080118"
+                    border.color: username.focus ? "#b400ff" : "#8c64a0"
+                    border.width: 1
+                    radius: 4
+                }
+                text: userModel.lastUser
+                KeyNavigation.tab: password
+                Keys.onReturnPressed: sddm.login(username.text, password.text, sessionModel.lastIndex)
+            }
+
+            // Password
+            TextField {
+                id: password
+                width: parent.width
+                height: 40
+                placeholderText: "PASSWORD"
+                font.family: "Hack"
+                font.pixelSize: 13
+                color: "#00ffc8"
+                placeholderTextColor: "#8c64a0"
+                echoMode: TextInput.Password
+                background: Rectangle {
+                    color: "#15080118"
+                    border.color: password.focus ? "#b400ff" : "#8c64a0"
+                    border.width: 1
+                    radius: 4
+                }
+                focus: true
+                KeyNavigation.tab: loginButton
+                Keys.onReturnPressed: sddm.login(username.text, password.text, sessionModel.lastIndex)
+            }
+
+            // Error message
+            Text {
+                id: errorMessage
+                font.family: "Hack"
+                font.pixelSize: 11
+                color: "#ff0050"
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: ""
+            }
+
+            // Login button
+            Button {
+                id: loginButton
+                width: parent.width
+                height: 40
+                text: ">>> AUTHENTICATE <<<"
+                font.family: "Hack"
+                font.pixelSize: 13
+                font.bold: true
+                onClicked: sddm.login(username.text, password.text, sessionModel.lastIndex)
+                background: Rectangle {
+                    color: loginButton.pressed ? "#b400ff" : (loginButton.hovered ? "#3b400ff" : "#25b400ff")
+                    border.color: "#b400ff"
+                    border.width: 1
+                    radius: 4
+                }
+                contentItem: Text {
+                    text: loginButton.text
+                    font: loginButton.font
+                    color: loginButton.pressed ? "#0a0014" : "#b400ff"
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                }
+            }
+        }
+    }
+
+    // Clock
+    Text {
+        anchors.top: parent.top
+        anchors.topMargin: 40
+        anchors.horizontalCenter: parent.horizontalCenter
+        font.family: "Hack"
+        font.pixelSize: 64
+        font.bold: true
+        color: "#b400ff"
+        z: 2
+        text: Qt.formatTime(new Date(), "HH:mm")
+        Timer {
+            interval: 1000
+            running: true
+            repeat: true
+            onTriggered: parent.text = Qt.formatTime(new Date(), "HH:mm")
+        }
+    }
+
+    // Date
+    Text {
+        anchors.top: parent.top
+        anchors.topMargin: 115
+        anchors.horizontalCenter: parent.horizontalCenter
+        font.family: "Hack"
+        font.pixelSize: 16
+        color: "#8c64a0"
+        z: 2
+        text: Qt.formatDate(new Date(), "dddd, MMMM d yyyy").toUpperCase()
+        Timer {
+            interval: 60000
+            running: true
+            repeat: true
+            onTriggered: parent.text = Qt.formatDate(new Date(), "dddd, MMMM d yyyy").toUpperCase()
+        }
+    }
+
+    // Session selector
+    ComboBox {
+        id: session
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 20
+        anchors.right: parent.right
+        anchors.rightMargin: 20
+        width: 200
+        z: 2
+        model: sessionModel
+        currentIndex: sessionModel.lastIndex
+        textRole: "name"
+        font.family: "Hack"
+        font.pixelSize: 11
+    }
+
+    // Power buttons
+    Row {
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 20
+        anchors.left: parent.left
+        anchors.leftMargin: 20
+        spacing: 10
+        z: 2
+
+        Button {
+            text: "SHUTDOWN"
+            font.family: "Hack"
+            font.pixelSize: 11
+            onClicked: sddm.powerOff()
+            background: Rectangle { color: "transparent"; border.color: "#ff0050"; border.width: 1; radius: 4 }
+            contentItem: Text { text: parent.text; font: parent.font; color: "#ff0050"; horizontalAlignment: Text.AlignHCenter; verticalAlignment: Text.AlignVCenter }
+        }
+        Button {
+            text: "REBOOT"
+            font.family: "Hack"
+            font.pixelSize: 11
+            onClicked: sddm.reboot()
+            background: Rectangle { color: "transparent"; border.color: "#ffaa00"; border.width: 1; radius: 4 }
+            contentItem: Text { text: parent.text; font: parent.font; color: "#ffaa00"; horizontalAlignment: Text.AlignHCenter; verticalAlignment: Text.AlignVCenter }
+        }
+    }
+}

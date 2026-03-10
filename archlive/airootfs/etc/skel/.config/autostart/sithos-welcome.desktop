@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Sith OS Welcome
+Exec=kitty --title "Sith OS Welcome" -e sithos-welcome
+Icon=help-about
+Terminal=false
+X-KDE-autostart-phase=2

@@ -1,0 +1,13 @@
+{
+  "policies": {
+    "Homepage": {
+      "URL": "file:///usr/share/sithos/startpage/index.html",
+      "Locked": false,
+      "StartPage": "homepage"
+    },
+    "NewTabPage": false,
+    "OverrideFirstRunPage": "",
+    "OverridePostUpdatePage": "",
+    "DisplayBookmarksToolbar": "never"
+  }
+}

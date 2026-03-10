@@ -1,0 +1,7 @@
+[parameters]
+Tapping=true
+TapDragLock=true
+NaturalScroll=true
+DisableWhileTyping=true
+ClickMethod=2
+PointerAcceleration=0

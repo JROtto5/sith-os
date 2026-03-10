@@ -1,0 +1,31 @@
+#!/bin/bash
+# Sith OS Theme Manager
+
+PURPLE='\033[1;35m'
+CYAN='\033[1;36m'
+RED='\033[1;31m'
+WHITE='\033[1;37m'
+DIM='\033[2m'
+NC='\033[0m'
+
+echo ""
+echo -e "${PURPLE}  ═══ SITH OS THEME MANAGER ═══${NC}"
+echo ""
+echo -e "  ${CYAN}Current theme:${NC} Sith Cyberpunk"
+echo ""
+echo -e "  ${PURPLE}Available themes:${NC}"
+echo -e "    ${WHITE}1)${NC} Sith Cyberpunk ${CYAN}(active)${NC}"
+echo -e "    ${DIM}2) Jedi Azure (coming soon)${NC}"
+echo -e "    ${DIM}3) Mandalorian Steel (coming soon)${NC}"
+echo -e "    ${DIM}4) Imperial Monochrome (coming soon)${NC}"
+echo ""
+echo -e "  ${PURPLE}Quick commands:${NC}"
+echo -e "    ${CYAN}sith-wallpaper${NC}     — Change wallpaper"
+echo -e "    ${CYAN}sith-showcase${NC}      — Demo terminal rice"
+echo -e "    ${CYAN}sithos-welcome${NC}     — Welcome screen"
+echo -e "    ${CYAN}sithos-maintain${NC}    — System maintenance"
+echo -e "    ${CYAN}sithos-hwdetect${NC}    — Hardware detection"
+echo ""
+echo -e "  ${DIM}Additional themes coming in future releases.${NC}"
+echo -e "  ${DIM}Contribute at: github.com/JROtto5/sith-os${NC}"
+echo ""

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SITH OS</title>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #080112;
+  --text: #e6dcff;
+  --purple: #b400ff;
+  --cyan: #00ffc8;
+  --red: #ff0033;
+  --amber: #ffaa00;
+  --card-bg: rgba(26, 5, 53, 0.6);
+  --border: rgba(180, 0, 255, 0.3);
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Cascadia Code', 'Fira Code', 'JetBrains Mono', 'SF Mono', 'Consolas', 'Liberation Mono', monospace;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Grid background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(180, 0, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(180, 0, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Scanline overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.08) 2px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+  animation: scanlines 8s linear infinite;
+}
+
+@keyframes scanlines {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(4px); }
+}
+
+/* Glow pulse keyframes */
+@keyframes glow-purple {
+  0%, 100% {
+    text-shadow:
+      0 0 10px rgba(180, 0, 255, 0.6),
+      0 0 30px rgba(180, 0, 255, 0.4),
+      0 0 60px rgba(180, 0, 255, 0.2);
+  }
+  50% {
+    text-shadow:
+      0 0 15px rgba(180, 0, 255, 0.8),
+      0 0 40px rgba(180, 0, 255, 0.6),
+      0 0 80px rgba(180, 0, 255, 0.3),
+      0 0 120px rgba(180, 0, 255, 0.1);
+  }
+}
+
+@keyframes glow-cyan {
+  0%, 100% {
+    text-shadow:
+      0 0 8px rgba(0, 255, 200, 0.5),
+      0 0 25px rgba(0, 255, 200, 0.3);
+  }
+  50% {
+    text-shadow:
+      0 0 12px rgba(0, 255, 200, 0.7),
+      0 0 35px rgba(0, 255, 200, 0.5),
+      0 0 60px rgba(0, 255, 200, 0.2);
+  }
+}
+
+@keyframes border-pulse {
+  0%, 100% { border-color: var(--border); box-shadow: 0 0 0 rgba(180, 0, 255, 0); }
+  50% { border-color: rgba(180, 0, 255, 0.6); box-shadow: 0 0 15px rgba(180, 0, 255, 0.15); }
+}
+
+@keyframes status-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 900px;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  flex: 1;
+  animation: fade-in-up 0.8s ease-out;
+}
+
+/* ---- TITLE ---- */
+.title-section {
+  text-align: center;
+  padding-top: 1rem;
+}
+
+.title {
+  font-size: 3.2rem;
+  font-weight: 900;
+  letter-spacing: 0.3em;
+  color: var(--purple);
+  animation: glow-purple 3s ease-in-out infinite;
+  user-select: none;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  color: rgba(230, 220, 255, 0.4);
+  letter-spacing: 0.5em;
+  margin-top: 0.3rem;
+  text-transform: uppercase;
+}
+
+/* ---- CLOCK ---- */
+.clock {
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--cyan);
+  animation: glow-cyan 2.5s ease-in-out infinite;
+  letter-spacing: 0.08em;
+  user-select: none;
+  line-height: 1;
+}
+
+.clock-seconds {
+  font-size: 1.5rem;
+  opacity: 0.6;
+  vertical-align: super;
+  margin-left: 0.15em;
+}
+
+/* ---- SEARCH ---- */
+.search-wrapper {
+  width: 100%;
+  position: relative;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.7rem 1rem;
+  transition: all 0.3s ease;
+  animation: border-pulse 4s ease-in-out infinite;
+}
+
+.search-form:focus-within {
+  border-color: var(--cyan);
+  box-shadow: 0 0 20px rgba(0, 255, 200, 0.15), inset 0 0 20px rgba(0, 255, 200, 0.03);
+  animation: none;
+}
+
+.search-prompt {
+  color: var(--cyan);
+  font-size: 1.1rem;
+  margin-right: 0.6rem;
+  user-select: none;
+  font-weight: 700;
+}
+
+.search-input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 1rem;
+  caret-color: var(--cyan);
+}
+
+.search-input::placeholder {
+  color: rgba(230, 220, 255, 0.25);
+  font-style: italic;
+}
+
+.search-cursor {
+  color: var(--cyan);
+  animation: cursor-blink 1s step-end infinite;
+  font-weight: 700;
+  margin-left: 2px;
+}
+
+/* ---- LINKS GRID ---- */
+.links-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.8rem;
+  width: 100%;
+}
+
+.link-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 1.2rem 0.5rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.link-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(180, 0, 255, 0.08), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.link-card:hover {
+  border-color: var(--purple);
+  box-shadow:
+    0 0 20px rgba(180, 0, 255, 0.2),
+    0 0 40px rgba(180, 0, 255, 0.05),
+    inset 0 0 30px rgba(180, 0, 255, 0.05);
+  transform: translateY(-3px);
+  color: #fff;
+}
+
+.link-card:hover::before {
+  opacity: 1;
+}
+
+.link-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+  z-index: 1;
+}
+
+.link-name {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.8;
+  z-index: 1;
+  font-weight: 600;
+}
+
+.link-card:hover .link-name {
+  opacity: 1;
+  color: var(--cyan);
+}
+
+/* ---- STATUS BAR ---- */
+.status-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: auto;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan);
+  animation: status-blink 2s ease-in-out infinite;
+}
+
+.status-text {
+  color: var(--cyan);
+  font-weight: 700;
+}
+
+.status-date {
+  color: rgba(230, 220, 255, 0.4);
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 700px) {
+  .links-grid { grid-template-columns: repeat(2, 1fr); }
+  .title { font-size: 2rem; letter-spacing: 0.2em; }
+  .clock { font-size: 2.5rem; }
+  .container { padding: 1.5rem 1rem; gap: 1.5rem; }
+}
+
+@media (max-width: 400px) {
+  .links-grid { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+  .title { font-size: 1.6rem; }
+  .clock { font-size: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="title-section">
+    <div class="title">SITH OS</div>
+    <div class="subtitle">The Dark Side of Linux</div>
+  </div>
+
+  <div class="clock" id="clock">00:00<span class="clock-seconds">00</span></div>
+
+  <div class="search-wrapper">
+    <form class="search-form" action="https://duckduckgo.com/" method="GET" autocomplete="off">
+      <span class="search-prompt">&gt;</span>
+      <input type="text" name="q" class="search-input" placeholder="search the holonet_" autofocus>
+      <span class="search-cursor" id="cursor">_</span>
+    </form>
+  </div>
+
+  <div class="links-grid">
+    <a href="https://wiki.archlinux.org/" class="link-card">
+      <span class="link-icon">#</span>
+      <span class="link-name">Arch Wiki</span>
+    </a>
+    <a href="https://aur.archlinux.org/" class="link-card">
+      <span class="link-icon">&oplus;</span>
+      <span class="link-name">AUR</span>
+    </a>
+    <a href="https://github.com/" class="link-card">
+      <span class="link-icon">&loz;</span>
+      <span class="link-name">GitHub</span>
+    </a>
+    <a href="https://reddit.com/" class="link-card">
+      <span class="link-icon">&sect;</span>
+      <span class="link-name">Reddit</span>
+    </a>
+    <a href="https://youtube.com/" class="link-card">
+      <span class="link-icon">&#9654;</span>
+      <span class="link-name">YouTube</span>
+    </a>
+    <a href="https://stackoverflow.com/" class="link-card">
+      <span class="link-icon">&equiv;</span>
+      <span class="link-name">Stack Overflow</span>
+    </a>
+    <a href="https://chatgpt.com/" class="link-card">
+      <span class="link-icon">&#10023;</span>
+      <span class="link-name">ChatGPT</span>
+    </a>
+    <a href="https://wikipedia.org/" class="link-card">
+      <span class="link-icon">&#8486;</span>
+      <span class="link-name">Wikipedia</span>
+    </a>
+  </div>
+
+  <div class="status-bar">
+    <div class="status-indicator">
+      <div class="status-dot"></div>
+      <span class="status-text">System Online</span>
+    </div>
+    <div class="status-date" id="status-date"></div>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  const clockEl = document.getElementById('clock');
+  const dateEl = document.getElementById('status-date');
+  const cursorEl = document.getElementById('cursor');
+  const searchInput = document.querySelector('.search-input');
+
+  function updateClock() {
+    const now = new Date();
+    const h = String(now.getHours()).padStart(2, '0');
+    const m = String(now.getMinutes()).padStart(2, '0');
+    const s = String(now.getSeconds()).padStart(2, '0');
+    clockEl.innerHTML = h + ':' + m + '<span class="clock-seconds">' + s + '</span>';
+  }
+
+  function updateDate() {
+    const now = new Date();
+    const opts = { weekday: 'short', year: 'numeric', month: 'short', day: '2-digit' };
+    dateEl.textContent = now.toLocaleDateString('en-US', opts).toUpperCase();
+  }
+
+  // Hide cursor when typing, show when empty
+  searchInput.addEventListener('input', function() {
+    cursorEl.style.display = this.value.length > 0 ? 'none' : '';
+  });
+
+  updateClock();
+  updateDate();
+  setInterval(updateClock, 1000);
+  setInterval(updateDate, 60000);
+})();
+</script>
+
+</body>
+</html>

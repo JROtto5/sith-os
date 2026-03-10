@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Yakuake
+Exec=yakuake
+Terminal=false
+X-KDE-autostart-after=panel

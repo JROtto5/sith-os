@@ -1,0 +1,9 @@
+[Trigger]
+Operation = Upgrade
+Type = Package
+Target = *
+
+[Action]
+Description = Sith OS: System upgraded successfully
+When = PostTransaction
+Exec = /bin/echo -e '\033[1;35m  ══ SITH OS ══\033[0m \033[1;36mPackages upgraded. The Force grows stronger.\033[0m'

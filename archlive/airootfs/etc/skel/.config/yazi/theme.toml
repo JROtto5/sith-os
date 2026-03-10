@@ -1,0 +1,102 @@
+# Sith Cyberpunk theme for yazi
+
+[manager]
+cwd = { fg = "#00ffc8" }
+hovered = { fg = "#080112", bg = "#b400ff", bold = true }
+preview_hovered = { underline = true }
+find_keyword = { fg = "#080112", bg = "#ffaa00", bold = true }
+find_position = { fg = "#00ffc8", italic = true }
+marker_copied = { fg = "#00ffc8", bg = "#00ffc8" }
+marker_cut = { fg = "#ff0033", bg = "#ff0033" }
+marker_selected = { fg = "#00ffc8", bg = "#00ffc8" }
+marker_marked = { fg = "#b400ff", bg = "#b400ff" }
+tab_active = { fg = "#080112", bg = "#00ffc8", bold = true }
+tab_inactive = { fg = "#8c64a0", bg = "#1a0535" }
+tab_width = 1
+count_copied = { fg = "#080112", bg = "#00ffc8" }
+count_cut = { fg = "#080112", bg = "#ff0033" }
+count_selected = { fg = "#080112", bg = "#b400ff" }
+border_symbol = " "
+border_style = { fg = "#8c64a0" }
+
+[mode]
+normal_main = { fg = "#080112", bg = "#b400ff", bold = true }
+normal_alt = { fg = "#b400ff", bg = "#1a0535" }
+select_main = { fg = "#080112", bg = "#00ffc8", bold = true }
+select_alt = { fg = "#00ffc8", bg = "#1a0535" }
+unset_main = { fg = "#080112", bg = "#ff0033", bold = true }
+unset_alt = { fg = "#ff0033", bg = "#1a0535" }
+
+[status]
+separator_open = ""
+separator_close = ""
+separator_style = { fg = "#8c64a0" }
+progress_label = { fg = "#e6dcff", bold = true }
+progress_normal = { fg = "#8c64a0" }
+progress_error = { fg = "#ff0033" }
+permissions_t = { fg = "#00ffc8" }
+permissions_r = { fg = "#ffaa00" }
+permissions_w = { fg = "#ff0033" }
+permissions_x = { fg = "#b400ff" }
+permissions_s = { fg = "#8c64a0" }
+
+[input]
+border = { fg = "#b400ff" }
+title = { fg = "#00ffc8" }
+value = { fg = "#e6dcff" }
+selected = { reversed = true }
+
+[pick]
+border = { fg = "#b400ff" }
+active = { fg = "#00ffc8", bold = true }
+inactive = { fg = "#8c64a0" }
+
+[completion]
+border = { fg = "#b400ff" }
+active = { fg = "#00ffc8", bg = "#1a0535" }
+inactive = { fg = "#8c64a0" }
+
+[tasks]
+border = { fg = "#b400ff" }
+title = { fg = "#00ffc8" }
+hovered = { fg = "#080112", bg = "#b400ff" }
+
+[which]
+mask = { bg = "#1a0535" }
+cand = { fg = "#00ffc8" }
+rest = { fg = "#8c64a0" }
+desc = { fg = "#e6dcff" }
+separator = " -> "
+separator_style = { fg = "#8c64a0" }
+
+[help]
+on = { fg = "#00ffc8" }
+run = { fg = "#b400ff" }
+desc = { fg = "#e6dcff" }
+hovered = { reversed = true, bold = true }
+footer = { fg = "#8c64a0" }
+
+[filetype]
+rules = [
+  { name = "*/", fg = "#b400ff", bold = true },
+  { mime = "image/*", fg = "#ffaa00" },
+  { mime = "video/*", fg = "#ff0033" },
+  { mime = "audio/*", fg = "#00ffc8" },
+  { mime = "application/zip", fg = "#9b59b6" },
+  { mime = "application/gzip", fg = "#9b59b6" },
+  { mime = "application/x-tar", fg = "#9b59b6" },
+  { mime = "application/x-7z-compressed", fg = "#9b59b6" },
+  { mime = "application/x-rar", fg = "#9b59b6" },
+  { name = "*.md", fg = "#00ffc8" },
+  { name = "*.rs", fg = "#ff0033" },
+  { name = "*.py", fg = "#ffaa00" },
+  { name = "*.js", fg = "#ffaa00" },
+  { name = "*.ts", fg = "#00ffc8" },
+  { name = "*.sh", fg = "#00ff96" },
+  { name = "*.toml", fg = "#8c64a0" },
+  { name = "*.yml", fg = "#8c64a0" },
+  { name = "*.yaml", fg = "#8c64a0" },
+  { name = "*.json", fg = "#8c64a0" },
+  { name = "*.conf", fg = "#8c64a0" },
+  { name = "*.lock", fg = "#8c64a0" },
+]

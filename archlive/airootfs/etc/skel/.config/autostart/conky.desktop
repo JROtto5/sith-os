@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Conky
+Exec=bash -c "sleep 5 && conky -c ~/.config/conky/conky.conf"
+Terminal=false
+X-GNOME-Autostart-enabled=true
+X-KDE-autostart-after=panel

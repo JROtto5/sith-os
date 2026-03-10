@@ -1,0 +1,9 @@
+[General]
+autoSaveImage=true
+clipboardGroup=PostScreenshotCopyImage
+lastUsedCaptureMode=0
+launchAction=DoNotTakeScreenshot
+rememberSelectionRect=Always
+
+[GuiConfig]
+captureMode=3

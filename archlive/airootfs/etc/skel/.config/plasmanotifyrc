@@ -1,0 +1,7 @@
+[Notifications]
+PopupPosition=TopRight
+LowPriorityHistory=true
+LowPriorityPopups=false
+
+[DoNotDisturb]
+WhenScreensMirrored=true
