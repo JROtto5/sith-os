@@ -6,7 +6,6 @@
 
 **A custom Arch Linux distribution that ships a fully themed KDE Plasma desktop, from bootloader to terminal prompt, as an installable live ISO.**
 
-[![Build ISO](https://github.com/JROtto5/sith-os/actions/workflows/build-iso.yml/badge.svg)](https://github.com/JROtto5/sith-os/actions/workflows/build-iso.yml)
 [![Release](https://img.shields.io/github/v/release/JROtto5/sith-os?color=b400ff&label=release)](https://github.com/JROtto5/sith-os/releases/latest)
 ![Arch Linux](https://img.shields.io/badge/base-Arch%20Linux-1793D1?logo=archlinux&logoColor=white)
 ![KDE Plasma 6](https://img.shields.io/badge/desktop-KDE%20Plasma%206-1D99F3?logo=kde&logoColor=white)
@@ -25,7 +24,7 @@ Sith OS is built with `archiso` and packages a hand-crafted "Sith Cyberpunk" des
 | **What it is** | An archiso profile (`archlive/`) that *is* the distro: package list, pacman config, boot configs and a root-filesystem overlay |
 | **Output** | A hybrid BIOS/UEFI live ISO: `out/sithos-YYYY.MM.DD-x86_64.iso` |
 | **Install path** | Live desktop, then the Calamares installer, then a first-boot personalization wizard |
-| **CI** | A GitHub Actions workflow builds the ISO in an `archlinux` container on version tags and uploads it as an artifact |
+| **CI** | A GitHub Actions workflow (`.github/workflows/build-iso.yml`) runs `mkarchiso` in a privileged `archlinux` container on version tags and uploads the ISO as an artifact |
 
 ## Features
 
