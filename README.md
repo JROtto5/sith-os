@@ -1,8 +1,31 @@
+<div align="center">
+
+<img src="docs/hero.jpg" alt="Sith OS: The Dark Side of Linux" width="100%">
+
 # SITH OS
 
-**The Dark Side of Linux**
+**A custom Arch Linux distribution that ships a fully themed KDE Plasma desktop, from bootloader to terminal prompt, as an installable live ISO.**
 
-A custom Arch Linux distribution featuring a hand-crafted Sith Cyberpunk desktop environment. Built with `archiso`, Sith OS packages a fully themed KDE Plasma experience into an installable live ISO — from boot splash to terminal prompt. ~190 curated packages, 178 config files, 10 custom commands, and a Calamares graphical installer.
+[![Build ISO](https://github.com/JROtto5/sith-os/actions/workflows/build-iso.yml/badge.svg)](https://github.com/JROtto5/sith-os/actions/workflows/build-iso.yml)
+[![Release](https://img.shields.io/github/v/release/JROtto5/sith-os?color=b400ff&label=release)](https://github.com/JROtto5/sith-os/releases/latest)
+![Arch Linux](https://img.shields.io/badge/base-Arch%20Linux-1793D1?logo=archlinux&logoColor=white)
+![KDE Plasma 6](https://img.shields.io/badge/desktop-KDE%20Plasma%206-1D99F3?logo=kde&logoColor=white)
+![archiso](https://img.shields.io/badge/built%20with-archiso-0f031e)
+![Calamares](https://img.shields.io/badge/installer-Calamares-00ffc8)
+[![License: MIT](https://img.shields.io/badge/license-MIT-ff0033)](LICENSE)
+
+</div>
+
+Sith OS is built with `archiso` and packages a hand-crafted "Sith Cyberpunk" desktop into a bootable live ISO with a Calamares graphical installer. The theme covers every stage: GRUB, the Plymouth boot splash, the SDDM login screen, KDE Plasma and the terminal. It ships about 240 curated packages, a root-filesystem overlay of about 190 files (including 30+ preconfigured app and KDE configs in `/etc/skel`), and 11 custom `sith-*` / `sithos-*` commands.
+
+### At a glance
+
+| | |
+|---|---|
+| **What it is** | An archiso profile (`archlive/`) that *is* the distro: package list, pacman config, boot configs and a root-filesystem overlay |
+| **Output** | A hybrid BIOS/UEFI live ISO: `out/sithos-YYYY.MM.DD-x86_64.iso` |
+| **Install path** | Live desktop, then the Calamares installer, then a first-boot personalization wizard |
+| **CI** | A GitHub Actions workflow builds the ISO in an `archlinux` container on version tags and uploads it as an artifact |
 
 ## Features
 
@@ -77,6 +100,7 @@ A custom Arch Linux distribution featuring a hand-crafted Sith Cyberpunk desktop
 | `sithos-install` | Launch the Calamares graphical installer |
 | `sithos-first-boot` | One-time post-install personalization wizard |
 | `sithos-hwdetect` | Detect GPU and recommend/install appropriate drivers |
+| `sithos-drivers` | Driver manager: GPU auto-config, NVIDIA install/remove, NVIDIA-on-Wayland, Bluetooth/printer support, fwupd, video acceleration |
 | `sithos-maintain` | System maintenance: updates, cache cleanup, snapshots |
 | `sithos-setup-sounds` | Configure desktop sound theme on first boot |
 
@@ -86,12 +110,12 @@ A custom Arch Linux distribution featuring a hand-crafted Sith Cyberpunk desktop
 sith-os/
 ├── archlive/                    # archiso profile
 │   ├── profiledef.sh            # ISO metadata & build config
-│   ├── packages.x86_64          # ~190 curated packages
+│   ├── packages.x86_64          # ~240 curated packages
 │   ├── pacman.conf               # Package manager config
 │   ├── airootfs/                 # Root filesystem overlay
 │   │   ├── etc/
 │   │   │   ├── skel/            # Default user home template
-│   │   │   │   ├── .config/     # 15+ themed app configs
+│   │   │   │   ├── .config/     # 30+ themed app & KDE configs
 │   │   │   │   │   ├── kitty/   bat/   btop/   cava/
 │   │   │   │   │   ├── conky/   fastfetch/   lazygit/
 │   │   │   │   │   ├── nvim/    yazi/  tmux/  Kvantum/
@@ -116,10 +140,12 @@ sith-os/
 │   │       │   ├── wallpapers/sithos/
 │   │       │   ├── sithos/      # Branding assets
 │   │       │   └── icons/       # Icon overrides
-│   │       └── local/bin/       # 10 custom Sith OS commands
+│   │       └── local/bin/       # 11 custom Sith OS commands
 │   ├── grub/                    # GRUB bootloader config
 │   ├── syslinux/                # BIOS boot config
 │   └── efiboot/                 # UEFI boot config
+├── .github/workflows/           # CI: ISO build on version tags
+├── docs/                        # README images
 ├── build.sh                     # ISO build script
 ├── test.sh                      # QEMU test script
 ├── CONTRIBUTING.md              # Contributor guide
@@ -177,6 +203,8 @@ cd ..
 sudo mkarchiso -v -w ./work -o ./out ./archlive
 ```
 
+You can also run `sudo ./build.sh`, a wrapper that does pre-flight checks first (root, `archiso` installed, local repo present, free disk space). Note that it uses `/tmp/sithos-build` as its work directory, so check the tmpfs note below before you use it.
+
 > **Note:** Do not use `/tmp` as the work directory — it runs on tmpfs (RAM) and will run out of space. Use a disk-backed path like `./work` instead.
 
 The ISO will be output to `out/sithos-YYYY.MM.DD-x86_64.iso`
@@ -222,7 +250,7 @@ The ISO will be output to `out/sithos-YYYY.MM.DD-x86_64.iso`
 - **Display manager:** SDDM
 - **Installer:** Calamares
 - **Boot splash:** Plymouth (custom script theme)
-- **Bootloader:** GRUB + systemd-boot (dual BIOS/UEFI)
+- **Bootloaders:** live ISO boots via syslinux (BIOS) and systemd-boot (UEFI); the installed system uses GRUB
 - **Audio:** PipeWire
 - **Shell:** Bash + Starship prompt
 - **Theming:** Kvantum, Breeze, custom KDE color scheme
@@ -237,7 +265,7 @@ The ISO will be output to `out/sithos-YYYY.MM.DD-x86_64.iso`
 - UI/UX theming across 15+ applications
 - Build system configuration (archiso/mkarchiso)
 - System architecture and file system overlay design
-- CI/CD pipeline with GitHub Actions
+- CI/CD pipeline with GitHub Actions (containerized Arch ISO build)
 
 ## License
 
